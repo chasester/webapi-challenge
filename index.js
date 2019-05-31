@@ -13,7 +13,7 @@ const projectRoutes = require('./routes/Projects');
 server.use(express.json());
 //server.use(logger);
 
-//server.use('/api/actions', actionRoutes);
+server.use('/api/actions', actionRoutes);
 //server.use('/api/projects', projectRoutes);
 
 server.use('/', (req, res) => { res.send(`api is up and running <br/>${process.env.MOTD}`)});
