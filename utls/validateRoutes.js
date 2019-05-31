@@ -5,7 +5,7 @@ const db_project = require("../data/helpers/projectModel");
 function validateAction(req, res, next) {
     let post =
     {
-        description: req.body.description ? body.description.substring(0,128) : undefined,
+        description: req.body.description ? req.body.description.substring(0,128) : undefined,
         notes: req.body.notes
     }
 
@@ -34,7 +34,7 @@ function validateActionId(req, res, next) {
     .then(result =>
     {
         if(!result || result.length==0) return res.status(400).json({error: "this id does not exist"})
-        req.project = result;
+        req.data = result;
         next();
     })
     .catch(error => res.status(500).json({error: error, message: "internal error of data"}) )

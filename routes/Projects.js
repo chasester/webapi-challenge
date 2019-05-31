@@ -8,7 +8,6 @@ const validator = require('../utls/validateRoutes');
 router.post('/', validator.validateProject, 
     (req, res, next) => 
     {
-        console.log(req.project);
         db.insert(req.project)
         .then(result => {req.params.id = result.id; next()})
         .catch(error => res.status(500).json({error: error, message: "name must be unique"}))
@@ -18,13 +17,13 @@ router.post('/', validator.validateProject,
 );
 
 router.post('/:id/actions', 
-    validator.validateProjectId, validator.validateProject, 
+    validator.validateProjectId, validator.validateAction, 
     (req, res) => 
     {
         req.data.project_id = req.project.id;
         db_action.insert(req.data)
         .then(() => {
-            db.getprojectactions(req.project.id)
+            db.getProjectActions(req.project.id)
             .then(result => res.status(200).json(result))
             .catch((err) => res.status(500).json({error: err, message: "Could not fetch any action from this project."}));
         })
